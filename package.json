@@ -6,10 +6,11 @@
   "name": "personalwebsite",
   "description": "",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./JsSrc/ws/wsServer.js",
   "dependencies": {
     "ansi-styles": "^3.2.1",
     "anymatch": "^3.1.3",
+    "babel": "^5.8.38",
     "balanced-match": "^1.0.2",
     "binary-extensions": "^2.3.0",
     "brace-expansion": "^1.1.11",
@@ -62,11 +63,14 @@
     "to-fast-properties": "^2.0.0",
     "to-regex-range": "^5.0.1",
     "update-browserslist-db": "^1.1.0",
+    "webpack": "^5.93.0",
     "wrappy": "^1.0.2",
     "yallist": "^3.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node JsSrc/ws/wsServer.js"
+
   },
   "keywords": [],
   "author": "",
