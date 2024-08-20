@@ -9,13 +9,9 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 THREE.Cache.enabled = true;
 
 let container;
-let camera, cameraTarget, scene, renderer;
-let group, textMesh1, textMesh2, textGeo, materials;
-let firstLetter = true;
+let camera, scene, renderer,  effect;
+let group, textMesh1, textGeo, materials;
 let text = 'Adrian',
-
-  bevelEnabled = true,
-
   font = undefined;
 
 let width = window.innerWidth;
@@ -24,15 +20,16 @@ let height =window.innerHeight;
 renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
-// effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
-// effect.setSize( window.innerWidth, window.innerHeight );
-// effect.domElement.style.color = 'white';
-// effect.domElement.style.backgroundColor = 'black';
 
-document.body.appendChild(renderer.domElement);
+effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
+effect.setSize( window.innerWidth, window.innerHeight );
+effect.domElement.style.color = 'white';
+effect.domElement.style.backgroundColor = 'black';
+
+document.body.appendChild(effect.domElement);
 
 camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
-camera.position.z = 200;
+camera.position.z = 500;
 
 scene = new THREE.Scene();
 scene.background = new THREE.Color( 0x000000 );
@@ -57,13 +54,13 @@ light.target.position.set(-5, 0, 0);
 scene.add(light);
 scene.add(light.target);
 
-const controls = new OrbitControls( camera, renderer.domElement );
+const controls = new OrbitControls( camera, effect.domElement );
 // controls.maxDistance = 50;//~ Max zoom out distance ~//
 controls.update();
 
 materials = [
-  new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true}), // front
-  new THREE.MeshPhongMaterial({ color: 0xffffff }) // side
+  new THREE.MeshBasicMaterial({ color: 0xffffff}), // front
+  new THREE.MeshBasicMaterial({ color: 0xffffff }) // side
 ];
 
 group = new THREE.Group();
@@ -86,7 +83,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  effect.setSize( window.innerWidth, window.innerHeight );
 
 }
 
@@ -110,23 +107,10 @@ function createText() {
   textGeo = new TextGeometry( text, {
 
     font: font,
-    depth: 20,
-    size: 100,
-		curveSegments: 6,
-		bevelEnabled: true,
-		bevelThickness: 10,
-		bevelSize: 5,
-		bevelOffset: 0,
-		bevelSegments: 5
+    depth: 2,
+    size: 50
 
   } );
-
-  textGeo.computeBoundingBox();
-  console.log(`TextGeometry Depth: ${textGeo.parameters.options.depth}`);
-
-  const axesHelper = new THREE.AxesHelper(50);
-  scene.add(axesHelper);
-
   textMesh1 = new THREE.Mesh( textGeo, materials );
 
   textMesh1.position.x = 0;
@@ -142,13 +126,10 @@ function createText() {
 
 
 function refreshText() {
-//   group.remove( textMesh1 );
-//   if ( ! text ) return;
   createText();
 }
   function animate() {
-    
-    renderer.render(scene, camera);
+    effect.render(scene, camera);
     // helper.render( renderer );
     controls.update();
     requestAnimationFrame(animate);//~ Request animation frame for smooth animation ~//
