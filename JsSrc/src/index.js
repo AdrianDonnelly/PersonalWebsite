@@ -14,15 +14,12 @@ let group, textMesh1, textGeo, materials;
 let text = 'Adrian',
   font = undefined;
 
-let width = window.innerWidth;
-let height =window.innerHeight;
+let width = window.innerWidth ;
+let height = window.innerHeight;
 
 renderer = new THREE.WebGLRenderer();
-// renderer.setSize( window.innerWidth, window.innerHeight );
-// renderer.setAnimationLoop( animate );
-
 effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
-effect.setSize( window.innerWidth, window.innerHeight );
+effect.setSize( width,height);
 effect.domElement.style.color = 'white';
 effect.domElement.style.backgroundColor = 'black';
 
