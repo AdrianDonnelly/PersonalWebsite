@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "@babel/cli": "^7.24.8",
-    "@babel/core": "^7.25.2"
+    "@babel/core": "^7.25.2",
+    "webpack-cli": "^5.1.4"
   },
   "name": "personalwebsite",
   "description": "",
@@ -70,7 +71,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node JsSrc/ws/wsServer.js"
-
   },
   "keywords": [],
   "author": "",
