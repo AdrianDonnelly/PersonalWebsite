@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import staticAdapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,12 +8,14 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
-		adapter: adapter(),
-		alias: {
-			"@/*": "./path/to/lib/*",
+		adapter: staticAdapter({
+			pages: 'build', // Directory to output static files
+			assets: 'build', // Directory to output static assets
+			fallback: null, // Set to '200.html' if you need a fallback for SPA
+			strict: true // Ensure all routes are prerendered
+		  }),
+		  paths: {
+			base: '/PersonalWebsite', // Use the appropriate base path if deploying to a subdirectory
 		  },
 	}
 };

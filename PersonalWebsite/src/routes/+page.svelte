@@ -7,12 +7,7 @@
       });
     });
     import { Separator } from "$lib/components/ui/separator";
-
   </script>
-  
-<style>
-    @import '../../static/styles/global.css'; 
-</style>
 
 <svelte:head>
     <title>Adrian Donnelly</title> 
