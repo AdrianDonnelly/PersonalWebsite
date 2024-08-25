@@ -77,7 +77,7 @@ function loadFont() {
 
 
   const loader = new FontLoader();
-  loader.load( '/JsSrc/fonts/Montserrat.json', function ( response ) {
+  loader.load( './JsSrc/fonts/Montserrat.json', function ( response ) {
 
     font = response;
 
